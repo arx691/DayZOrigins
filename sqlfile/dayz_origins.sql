@@ -1037,7 +1037,7 @@ WHILE (iNumVehExisting < iVehSpawnMax) DO
 	IF (iNumClassExisting < @rsMaxNum) THEN
 		IF (rndspawn(@rschance) = 1) THEN
 			INSERT INTO object_data (ObjectUID, Instance, Classname, Damage, CharacterID, Worldspace, Inventory, Hitpoints, Fuel, Datestamp)
-				SELECT OS.ObjectUID, '1', OC.Classname, OC.Damage, NULL AS `CharacterID`, OS.Worldspace, '[]' AS `Inventory`, OC.Hitpoints, '0.07', SYSDATE()
+				SELECT OS.ObjectUID, '1', OC.Classname, RAND(@rsOC.Damage), NULL AS `CharacterID`, OS.Worldspace, '[]' AS `Inventory`, OC.Hitpoints, RAND(1), SYSDATE()
 					FROM object_spawns OS
 					INNER JOIN object_classes OC
 					ON OS.Classname = OC.Classname
@@ -1045,7 +1045,7 @@ WHILE (iNumVehExisting < iVehSpawnMax) DO
 				AND NOT OS.ObjectUID IN (SELECT ObjectUID FROM object_data WHERE instance = sInstance)
 			ORDER BY RAND()
 			LIMIT 0, 1;
-
+			
 			SELECT COUNT(*)
 			INTO iNumVehExisting
 			FROM object_data
