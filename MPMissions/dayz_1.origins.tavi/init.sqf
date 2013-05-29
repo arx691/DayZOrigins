@@ -55,7 +55,7 @@ if (isServer) then {
 	_serverMonitor = 	[] execVM "\z\addons\dayz_code\system\server_monitor.sqf";
 };
 
-if (!isDedicated) then {
+if (!isDedicated) then { [] execVM "scripts\kh_actions.sqf";
 	//Conduct map operations
 	0 fadeSound 0;
 	waitUntil {!isNil "dayz_loadScreenMsg"};
