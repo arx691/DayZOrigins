@@ -17,7 +17,7 @@ arr_survivor_spawns_alt = [[[8401.41,18601,0],[8200.65,18597.6,0],[8399.73,18806
 dayzLoginRecord = nil; //New line is here!
 
 //Time
-[5,true,true,5] execFSM "core_time.fsm";
+[3,true,true,3] execFSM "core_time.fsm";
 
 //disable greeting menu 
 player setVariable ["BIS_noCoreConversations", true];
