@@ -51,6 +51,41 @@ CREATE TABLE `character_data` (
 -- ----------------------------
 
 -- ----------------------------
+-- Table structure for `character_data_dead`
+-- ----------------------------
+DROP TABLE IF EXISTS `character_data_dead`;
+CREATE TABLE `character_data_dead` (
+  `CharacterID` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `PlayerUID` varchar(20) NOT NULL DEFAULT '',
+  `Alive` tinyint(1) NOT NULL DEFAULT '1',
+  `InstanceID` tinyint(2) NOT NULL,
+  `Worldspace` varchar(128) NOT NULL DEFAULT '[]',
+  `Inventory` longtext NOT NULL,
+  `Backpack` longtext NOT NULL,
+  `Medical` varchar(300) NOT NULL DEFAULT '[]',
+  `Generation` smallint(4) unsigned NOT NULL DEFAULT '0',
+  `Datestamp` timestamp NULL DEFAULT NULL,
+  `LastLogin` timestamp NULL DEFAULT NULL,
+  `LastAte` timestamp NULL DEFAULT NULL,
+  `LastDrank` timestamp NULL DEFAULT NULL,
+  `Humanity` int(10) DEFAULT NULL,
+  `KillsZ` mediumint(5) unsigned NOT NULL DEFAULT '0',
+  `HeadshotsZ` mediumint(5) unsigned NOT NULL DEFAULT '0',
+  `distanceFoot` bigint(15) unsigned NOT NULL DEFAULT '0',
+  `duration` int(10) NOT NULL DEFAULT '0',
+  `currentState` varchar(128) NOT NULL DEFAULT '[]',
+  `KillsH` mediumint(5) unsigned NOT NULL DEFAULT '0',
+  `KillsB` mediumint(5) unsigned NOT NULL DEFAULT '0',
+  `Model` varchar(50) NOT NULL DEFAULT '"Survivor1_DZ"',
+  `Datetime` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`CharacterID`,`PlayerUID`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of character_data_dead
+-- ----------------------------
+
+-- ----------------------------
 -- Table structure for `dbver`
 -- ----------------------------
 DROP TABLE IF EXISTS `dbver`;
@@ -866,7 +901,7 @@ DELIMITER ;
 -- ----------------------------
 DROP PROCEDURE IF EXISTS `pCleanupOOB`;
 DELIMITER ;;
-CREATE DEFINER=`root`@`` PROCEDURE `pCleanupOOB`()
+CREATE DEFINER=`root`@`localhost` PROCEDURE `pCleanupOOB`()
 BEGIN
 
 
@@ -1045,7 +1080,7 @@ WHILE (iNumVehExisting < iVehSpawnMax) DO
 				AND NOT OS.ObjectUID IN (SELECT ObjectUID FROM object_data WHERE instance = sInstance)
 			ORDER BY RAND()
 			LIMIT 0, 1;
-			
+
 			SELECT COUNT(*)
 			INTO iNumVehExisting
 			FROM object_data
